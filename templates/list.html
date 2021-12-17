@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="bg-light p-3 p-sm-4 my-3 rounded">
+      <h1 class="display-4">TodoList</h1>
+    </div>
+
+{% endblock header %}
+
+{% block content %}
+<a class="btn btn-secondary mb-3" href="{% url 'create' %}" role="button">新規作成</a>
+
+
+<form method="GET" action="">
+    <input type="search" name="keyword">
+    <button type="submit">検索</button>
+</form>
+
+<form method="GET" action="">
+    <input type="radio" name="sort" value="duedate">期限
+    <input type="radio" name="sort" value="priority">優先度
+    <button type="submit">並び替え</button>
+</form>
+
+<form method="GET" action="">
+    <input type="checkbox" name="narrow" value='Not started'>未完了のタスクのみ表示
+    <button type="submit">絞り込み</button>
+</form>
+
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">タスク名</th>
+        <th scope="col">概要</th>
+        <th scope="col">期限</th>
+        <th scope="col">優先度</th>
+        <th scope="col">ステータス</th>
+        <th scope="col">削除</th>
+        <th scope="col">編集</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in object_list %}
+    {% if item.user_id|stringformat:"s" == user.id|stringformat:"s" %} 
+      <tr>
+        <th scope="row"><a href="{% url 'detail' item.pk %}">{{ item.title }}</a></th>
+        <td>{{ item.memo }}</td>
+        <td>{{ item.duedate |date:"o/n/j/P" }}</td>
+        <td>{{ item.priority }}</td>
+        <td>{{ item.status }}</td>
+        <td><a href="{% url 'delete' item.pk %}">削除</a></td>
+        <td><a href="{% url 'update' item.pk %}">編集</a></td>
+      </tr>
+    {% endif %}   
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'logout' %}">logout</a>
+
+
+
+{% endblock content %}

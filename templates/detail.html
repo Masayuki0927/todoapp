@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="alert alert-dark" role="alert">
+    <h2>タスクの詳細</h2>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<div class="alert alert-success" role="alert">
+<p>{{ object.title }}</p>
+<p>{{ object.memo }}</p>
+<p>{{ object.priority }}</p>
+<p>{{ object.status }}</p>
+<p>{{ object.duedate }}</p>
+<!-- <p>{{ object.user_id }}</p> -->
+</div>
+
+<a href="{% url 'update' object.pk %}">編集する</a>
+<p><a href="{% url 'list' %}">トップページに戻る</a></p>
+
+{% endblock content %}

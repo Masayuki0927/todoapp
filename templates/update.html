@@ -1,0 +1,8 @@
+<form action='' method='POST'>{% csrf_token %}
+{{ form.title }}
+{{ form.memo }}
+{{ form.priority }}
+{{ form.status }}
+{{ form.duedate }}
+<input type= 'submit' value= '編集完了'>
+</form>
